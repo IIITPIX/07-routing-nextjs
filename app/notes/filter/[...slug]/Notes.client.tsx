@@ -10,15 +10,32 @@ import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import { useParams } from "next/navigation";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: string;
+}
+export default function NotesClient({ tag }: NotesClientProps) {
+  // const { slug } = useParams();
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>("");
+
+  // const firstLetterUpperCase = (param: string) => {
+  //   return param.charAt(0).toUpperCase() + param.slice(1);
+  // };
+  // const resultTag =
+  //   slug && slug[0] !== "all" ? firstLetterUpperCase(slug[0]) : undefined;
 
   const { data } = useQuery({
     queryKey: ["notes", currentPage, searchText],
     queryFn: () =>
-      fetchNotes({ search: searchText, page: currentPage, perPage: 12 }),
+      fetchNotes({
+        search: searchText,
+        page: currentPage,
+        perPage: 12,
+        tag: tag,
+      }),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
   });

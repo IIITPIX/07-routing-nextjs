@@ -10,6 +10,7 @@ interface FetchNotesProps {
   search: string;
   page: number;
   perPage: number;
+  tag?: string;
 }
 
 interface FetchNotesData {
@@ -20,12 +21,14 @@ export async function fetchNotes({
   search,
   page,
   perPage,
+  tag,
 }: FetchNotesProps): Promise<FetchNotesData> {
   const { data } = await axios.get<FetchNotesData>("/notes", {
     params: {
       search: search,
       page: page,
       perPage: perPage,
+      tag: tag,
     },
   });
   return data;
