@@ -8,7 +8,6 @@ import Modal from "@/components/Modal/Modal";
 import { useState } from "react";
 
 export default function NotePreviewClient() {
-  const [modalIsOpen, setIsOpenModal] = useState<boolean>(false);
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError } = useQuery({
@@ -20,7 +19,7 @@ export default function NotePreviewClient() {
   return (
     <Modal
       onClose={() => {
-        setIsOpenModal(false);
+        router.back();
       }}
     >
       <button onClick={() => router.back()}>Back</button>
