@@ -16,19 +16,11 @@ interface NotesClientProps {
   tag?: string;
 }
 export default function NotesClient({ tag }: NotesClientProps) {
-  // const { slug } = useParams();
-
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>("");
 
-  // const firstLetterUpperCase = (param: string) => {
-  //   return param.charAt(0).toUpperCase() + param.slice(1);
-  // };
-  // const resultTag =
-  //   slug && slug[0] !== "all" ? firstLetterUpperCase(slug[0]) : undefined;
-
   const { data } = useQuery({
-    queryKey: ["notes", currentPage, searchText],
+    queryKey: ["notes", currentPage, searchText, tag],
     queryFn: () =>
       fetchNotes({
         search: searchText,
